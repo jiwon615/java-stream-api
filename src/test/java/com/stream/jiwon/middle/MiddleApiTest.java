@@ -99,6 +99,21 @@ public class MiddleApiTest {
         result.forEach(System.out::println); // 12, 17, 29, 35, 41
     }
 
+    @DisplayName("skip test")
+    @Test
+    void skip_test() {
+        // given
+        List<Integer> list = List.of(12, 17, 29, 35, 41);
+
+        // when
+        List<Integer> result = list.stream()
+                .skip(3)
+                .toList();
+
+        //then
+        result.forEach(System.out::println); // 35, 41
+    }
+
     @DisplayName("dropWhile, takeWhile test")
     @Test
     void dropWhile_takeWhile_test() {
