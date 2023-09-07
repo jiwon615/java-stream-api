@@ -1,4 +1,4 @@
-package com.stream.jiwon.middle;
+package com.stream.jiwon;
 
 import com.stream.jiwon.dto.Member;
 import org.junit.jupiter.api.DisplayName;
