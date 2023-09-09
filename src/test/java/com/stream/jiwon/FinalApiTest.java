@@ -3,8 +3,8 @@ package com.stream.jiwon;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class FinalApiTest {
 
@@ -29,5 +29,29 @@ public class FinalApiTest {
         System.out.println("test2 = " + test2);
         System.out.println("test3 = " + test3);
 
+    }
+
+    @DisplayName("collect test")
+    @Test
+    void collect_test() {
+        // given
+        List<String> list = List.of("a", "a", "b", "b", "b", "c", "d");
+
+        // when
+        List<String> result = list.stream()
+                .collect(Collectors.toList());
+
+        List<String> shortResult = list.stream().toList();
+
+        Set<String> result2 = list.stream()
+                .collect(Collectors.toSet());
+        Set<String> shortResult2 = new HashSet<>(list);
+
+        LinkedList<String>shortResult3 = new LinkedList<>(list);
+        LinkedList<String> result3 = list.stream()
+                .collect(Collectors.toCollection(() -> new LinkedList<>()));
+
+        // then
+        result.forEach(System.out::println);
     }
 }
