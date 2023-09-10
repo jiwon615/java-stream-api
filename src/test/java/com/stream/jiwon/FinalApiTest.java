@@ -54,4 +54,22 @@ public class FinalApiTest {
         // then
         result.forEach(System.out::println);
     }
+
+    @DisplayName("collectingAndThen test")
+    @Test
+    void collectingAndThen_test() {
+        // given
+        List<Integer> list = Arrays.asList(1, 3, 6);
+
+        // when
+        Integer result = list.stream()
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toList(),
+                        i -> i.stream().reduce(Integer::sum)))
+                .orElseThrow();
+
+        //then
+        System.out.println("result = " + result);
+
+    }
 }
