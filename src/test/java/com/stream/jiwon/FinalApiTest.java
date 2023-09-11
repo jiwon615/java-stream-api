@@ -72,4 +72,26 @@ public class FinalApiTest {
         System.out.println("result = " + result);
 
     }
+
+    @DisplayName("joining test")
+    @Test
+    void joining_test() {
+        // given
+        List<String> list = List.of("aa", "bb", "cc", "dd");
+
+        // when
+        String result1 = list.stream()
+                .collect(Collectors.joining());
+
+        String result2 = list.stream()
+                .collect(Collectors.joining(", "));
+
+        String result3 = list.stream()
+                .collect(Collectors.joining(", ", "[", "]"));
+
+        //then
+        System.out.println("result1 = " + result1);
+        System.out.println("result2 = " + result2);
+        System.out.println("result3 = " + result3);
+    }
 }
