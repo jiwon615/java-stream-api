@@ -94,4 +94,17 @@ public class FinalApiTest {
         System.out.println("result2 = " + result2);
         System.out.println("result3 = " + result3);
     }
+
+    @DisplayName("partitionBy test")
+    @Test
+    void partitionBy_test() {
+        // given
+        List<Integer> list = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        Map<Boolean, List<Integer>> result = list.stream()
+                .collect(Collectors.partitioningBy(i -> i > 3)); // 결과: {false=[1, 2, 3], true=[4, 5, 6, 7, 8, 9, 10]}
+
+        Map<Boolean, Long> result2 = list.stream()
+                .collect(Collectors.partitioningBy(i -> i > 3, Collectors.counting())); // 결과: {false=3, true=7}
+
+    }
 }
