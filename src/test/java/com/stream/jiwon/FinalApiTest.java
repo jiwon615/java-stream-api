@@ -1,5 +1,6 @@
 package com.stream.jiwon;
 
+import com.stream.jiwon.dto.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -47,7 +48,7 @@ public class FinalApiTest {
                 .collect(Collectors.toSet());
         Set<String> shortResult2 = new HashSet<>(list);
 
-        LinkedList<String>shortResult3 = new LinkedList<>(list);
+        LinkedList<String> shortResult3 = new LinkedList<>(list);
         LinkedList<String> result3 = list.stream()
                 .collect(Collectors.toCollection(() -> new LinkedList<>()));
 
@@ -106,5 +107,37 @@ public class FinalApiTest {
         Map<Boolean, Long> result2 = list.stream()
                 .collect(Collectors.partitioningBy(i -> i > 3, Collectors.counting())); // 결과: {false=3, true=7}
 
+    }
+
+    @DisplayName("groupingBy test")
+    @Test
+    void groupingBy_test() {
+        // given
+        Member member1 = Member.builder().name("테스터1").country("한국").build();
+        Member member2 = Member.builder().name("테스터2").country("미국").build();
+        Member member3 = Member.builder().name("테스터3").country("캐나다").build();
+        Member member4 = Member.builder().name("테스터4").country("한국").build();
+        Member member5 = Member.builder().name("테스터5").country("한국").build();
+        Member member6 = Member.builder().name("테스터6").country("캐나다").build();
+        Member member7 = Member.builder().name("테스터7").country("일본").build();
+
+        List<Member> members = List.of(member1, member2, member3, member4, member5, member6, member7);
+
+        // 국가별 해당하는 Member 값 그룹화
+        Map<String, List<Member>> result1 = members.stream()
+                .collect(Collectors.groupingBy(Member::getCountry));
+
+        // 국가별 해당하는 Member 의 count 그룹화
+        Map<String, Long> result2 = members.stream()
+                .collect(Collectors.groupingBy(Member::getCountry, Collectors.counting()));
+
+        // 국가별 해당하는 Member 의 이름(name)을 (이름1,이름2)이런 형태로 그룹화 한 뒤, HashMap 형태로 반환
+        HashMap<String, String> result3 = members.stream()
+                .collect(
+                        Collectors.groupingBy(
+                                Member::getCountry,
+                                HashMap::new,
+                                Collectors.mapping(Member::getName, Collectors.joining(",", "(", ")")))
+                );
     }
 }
