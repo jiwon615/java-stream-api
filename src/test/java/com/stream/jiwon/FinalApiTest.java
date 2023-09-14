@@ -140,4 +140,28 @@ public class FinalApiTest {
                                 Collectors.mapping(Member::getName, Collectors.joining(",", "(", ")")))
                 );
     }
+
+    @DisplayName("Collectors.mapping test")
+    @Test
+    void mapping_test() {
+        // given
+        Member member1 = Member.builder().name("테스터1").country("한국").build();
+        Member member2 = Member.builder().name("테스터2").country("미국").build();
+        Member member3 = Member.builder().name("테스터3").country("캐나다").build();
+        Member member4 = Member.builder().name("테스터4").country("한국").build();
+        Member member5 = Member.builder().name("테스터5").country("한국").build();
+        Member member6 = Member.builder().name("테스터6").country("캐나다").build();
+        Member member7 = Member.builder().name("테스터7").country("일본").build();
+
+        List<Member> members = List.of(member1, member2, member3, member4, member5, member6, member7);
+
+
+        // when
+        List<String> result = members.stream()
+                .collect(Collectors.mapping(Member::getCountry, Collectors.toList()));
+
+        List<String> result2 = members.stream()
+                .map(Member::getCountry)
+                .toList();
+    }
 }
