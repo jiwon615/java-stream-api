@@ -164,4 +164,18 @@ public class FinalApiTest {
                 .map(Member::getCountry)
                 .toList();
     }
+
+    @DisplayName("Collectors.averagingInt test")
+    @Test
+    void averagingInt_test() {
+        // given
+        List<String> list = List.of("1", "2", "3", "4", "5");
+
+        // when
+        Double result = list.stream()
+                .collect(Collectors.averagingInt(Integer::parseInt));
+
+        //then
+        System.out.println("result = " + result); // 3.0
+    }
 }
