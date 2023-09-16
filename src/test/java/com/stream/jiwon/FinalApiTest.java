@@ -178,4 +178,22 @@ public class FinalApiTest {
         //then
         System.out.println("result = " + result); // 3.0
     }
+
+    @DisplayName("Collectors.averagingDouble test")
+    @Test
+    void averagingDouble_test() {
+        // given
+        List<String> list = List.of("1", "2", "3", "4", "5");
+
+        // when
+        Double result = list.stream()
+                .collect(Collectors.averagingDouble(Integer::parseInt));
+
+        Double result2 = list.stream()
+                .collect(Collectors.averagingLong(Integer::parseInt));
+
+        //then
+        System.out.println("result = " + result); // 3.0
+        System.out.println("result2 = " + result2); // 3.0
+    }
 }
