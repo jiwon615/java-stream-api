@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
+import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 
 public class FinalApiTest {
@@ -195,5 +196,27 @@ public class FinalApiTest {
         //then
         System.out.println("result = " + result); // 3.0
         System.out.println("result2 = " + result2); // 3.0
+    }
+
+    @DisplayName("summarizingInt test")
+    @Test
+    void summarizingInt_test() {
+        // given
+        List<String> list = List.of("1", "2", "3", "4", "5");
+
+        // when
+        IntSummaryStatistics result = list.stream()
+                .collect(Collectors.summarizingInt(Integer::parseInt));
+
+        LongSummaryStatistics result2 = list.stream()
+                .collect(Collectors.summarizingLong(Long::parseLong));
+
+        DoubleSummaryStatistics result3 = list.stream()
+                .collect(Collectors.summarizingDouble(Double::parseDouble));
+
+        System.out.println("result1 = " + result); // result.getAverage() 등으로 정보 조회 가능
+        System.out.println("result2 = " + result2);
+        System.out.println("result3 = " + result3);
+
     }
 }
