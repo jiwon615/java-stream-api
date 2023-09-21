@@ -37,12 +37,18 @@ public class MiddleApiTest {
     void map_test() {
         // given
         List<String> list = List.of("a", "a", "b", "b", "b", "c", "d");
+        List<Integer> intList = List.of(1, 2, 3, 4, 5);
 
         // when
         List<String> result = list.stream()
                 .map(String::toUpperCase)
                 .peek(System.out::print)
                 .toList();
+
+        int[] intResult = intList.stream()
+                .mapToInt(i -> i) // Integer -> int
+                .peek(System.out::println) // 1 2 3 4 5
+                .toArray();
 
         //then
         assertEquals(result.toString(), List.of("A, A, B, B, B, C, D").toString());
