@@ -1,6 +1,6 @@
 package com.stream.jiwon.middle;
 
-import org.junit.jupiter.api.Assertions;
+import com.stream.jiwon.dto.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -52,5 +52,35 @@ public class MiddleApiTest {
 
         //then
         assertEquals(result.toString(), List.of("A, A, B, B, B, C, D").toString());
+    }
+
+    @DisplayName("flatMap test")
+    @Test
+    void flatMap_test() {
+        // given
+        Member member1 = Member.builder()
+                .age(10)
+                .name("정지원")
+                .scores(List.of("10", "20", "30", "40", "50"))
+                .build();
+
+        Member member2 = Member.builder()
+                .age(22)
+                .name("정지원2")
+                .scores(List.of("44", "55", "60", "70", "80", "90"))
+                .build();
+
+        List<Member> list = List.of(member1, member2);
+
+        // when
+        String result = list.stream()
+                .flatMap(i -> i.getScores().stream())
+                .mapToInt(Integer::parseInt)
+                .filter(i -> i >= 40)
+                .mapToObj(String::valueOf)
+                .collect(Collectors.joining("!! "));
+
+        //then
+        System.out.println("result = " + result); // result = 40!! 50!! 44!! 55!! 60!! 70!! 80!! 90
     }
 }
