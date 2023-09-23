@@ -83,4 +83,24 @@ public class MiddleApiTest {
         //then
         System.out.println("result = " + result); // result = 40!! 50!! 44!! 55!! 60!! 70!! 80!! 90
     }
+
+    @DisplayName("dropWhile, takeWhile test")
+    @Test
+    void dropWhile_takeWhile_test() {
+        // given
+        List<Integer> list = List.of(12, 17, 29, 35, 41, 44, 50, 66, 72, 80);
+
+        // when
+        List<Integer> result = list.stream()
+                .takeWhile(i -> i < 50)
+                .toList();
+
+        List<Integer> result2 = list.stream()
+                .dropWhile(i -> i < 50)
+                .toList();
+
+        //then
+        result.forEach(System.out::println); // 12, 17, 29, 35, 41, 44
+        result2.forEach(System.out::println); // 50, 66, 72, 80
+    }
 }
